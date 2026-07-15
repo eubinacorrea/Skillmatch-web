@@ -1,0 +1,143 @@
+/*  index.html
+   (header, formulário de perfil, inputs, botão, logo) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f7f6; /* Fundo levemente acinzentado */
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+header, footer {
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* --- (Mobile-First) --- */
+main {
+    display: flex;
+    flex-direction: column; /* No celular, fica um embaixo do outro */
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+    main {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .secao-perfil {
+        flex: 1;  
+    }
+    .secao-resultados {
+        flex: 2; 
+    }
+
+
+
+header img {
+    max-width: 400px;
+    height: auto;
+}
+
+.visualmente-oculto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.card-input {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Sombra suave */
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+input, select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #0056b3; /* Cor de foco para acessibilidade */
+}
+
+/* Dica de input */
+.dica-input {
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: -5px;
+}
+
+
+button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color:#372aa8;
+}
+
+/* --- Linha do input de habilidade + botão de adicionar --- */
+.linha-input-habilidade {
+    display: flex;
+    gap: 8px;
+}
+
+.linha-input-habilidade input {
+    flex: 1;
+}
+
+#btn-add-habilidade {
+    padding: 10px 16px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+#btn-add-habilidade:hover {
+    background-color: #372aa8;
+}
+
+
