@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "empresa": "Tech Co",
+    "cargo": "Front-End Jr",
+    "requisitos": ["JavaScript", "HTML5", "CSS3"],
+    "salario": "R$3000,00",
+    "modalidade": "Híbrido"
+  },
+  {
+    "id": 2,
+    "empresa": "Startup X",
+    "cargo": "Dev Jr",
+    "requisitos": ["JavaScript", "React", "GitHub"],
+    "salario": "R$2500,00",
+    "modalidade": "Híbrido"
+  },
+  {
+    "id": 3,
+    "empresa": "Web Agency",
+    "cargo": "Junior Dev",
+    "requisitos": ["HTML5", "CSS3", "GitHub"],
+    "salario": "R$2000,00",
+    "modalidade": "Presencial"
+  },
+  {
+    "id": 4,
+    "empresa": "Digital Labs",
+    "cargo": "Front-End Developer",
+    "requisitos": ["JavaScript", "React", "CSS3", "TypeScript"],
+    "salario": "R$5500,00",
+    "modalidade": "Remoto"
+  }
+]
