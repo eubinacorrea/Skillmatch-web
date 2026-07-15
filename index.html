@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkillMatch2 - Plataforma de análise de compatibilidade para vagas Front-End.">
+    <title>SkillMatch</title>
+
+    <link rel="stylesheet" href="./assets/styles/index.style.css">
+</head>
+
+<body>
+
+    <header>
+        <img src="./assets/img/logo.svg" alt="Logo SkillMatch: ícone de código e nome da marca, Front-End Developer">
+        <h1 class="visualmente-oculto">SkillMatch</h1>
+        <p>Descubra a vaga ideal para o seu perfil</p>
+    </header>
+
+    <main>
+        <section class="secao-perfil" aria-label="Formulário de Perfil do Candidato">
+            <h2>Sobre você</h2>
+            <form id="form-perfil">
+                <!-- Card 1: Dados Básicos -->
+                <div class="card-input">
+                    <label for="nome">Nome Completo *</label>
+                    <input type="text" id="nome" name="nome" required placeholder="Ex: Sabrina Correa">
+
+                    <label for="area">Área de Atuação *</label>
+                    <select id="area" name="area" required>
+                        <option value="" disabled selected>Selecione sua área...</option>
+                        <option value="Front-End">Front-End</option>
+                        <option value="Back-End">Back-End</option>
+                        <option value="Full-Stack">Full-Stack</option>
+                    </select>
+                </div>
+
+                <!-- Card 2: Experiência -->
+                <div class="card-input">
+                    <label for="experiencia">Tempo de Experiência (meses) *</label>
+                    <input type="number" id="experiencia" name="experiencia" min="0" required placeholder="Ex: 12">
+                </div>
+
+                <!-- Card 3: Habilidades (Aqui a mágica dos chips vai acontecer depois) -->
+                <div class="card-input">
+                    <label for="habilidade-input">Adicione suas Habilidades:</label>
+                    <p class="dica-input">Digite a tecnologia (ex: javascript, css) e aperte Enter.</p>
+                    <div class="linha-input-habilidade">
+                        <input type="text" id="habilidade-input" placeholder="Digite aqui...">
+                        <button type="button" id="btn-add-habilidade"
+                            aria-label="Adicionar habilidade">Adicionar</button>
+                    </div>
+
+                    <!-- Container visual onde os "chips" das habilidades vão se acumular -->
+                    <div id="container-habilidades" aria-live="polite"></div>
+                </div>
+                <button type="submit">Analisar Compatibilidade</button>
+            </form>
+        </section>
+
+        <section class="secao-resultados" aria-label="Vagas Recomendadas">
+            <h2>Vagas Recomendadas</h2>
+            <div id="container-vagas">
+                <p>Preencha seu perfil para ver as vagas recomendadas.</p>
+            </div>
+
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 SkillMatch2 - Projeto Avaliativo SCTEC</p>
+    </footer>
+
+    <script type="module" src="./assets/scripts/main.js"></script>
+</body>
+
+</html>
