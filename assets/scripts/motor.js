@@ -1,0 +1,95 @@
+export class Vaga {
+  constructor(id, empresa, cargo, requisitos) {
+    this.id = id;
+    this.empresa = empresa;
+    this.cargo = cargo;
+    this.requisitos = requisitos;
+  }
+  calcularCompatibilidade(habilidadesCandidato) {
+    const habilidadesPadronizadas = habilidadesCandidato.map((h) =>
+      h.toLowerCase().trim(),
+    );
+
+    const encontradas = this.requisitos.filter((req) =>
+      habilidadesPadronizadas.includes(req.toLowerCase().trim()),
+    );
+    const faltantes = this.requisitos.filter(
+      (req) => !habilidadesPadronizadas.includes(req.toLowerCase().trim()),
+    );
+
+    const percentual = Math.round(
+      (encontradas.length / this.requisitos.length) * 100,
+    );
+
+    let classificacao = "";
+    if (percentual >= 80) {
+      classificacao = "Alta";
+    } else if (percentual >= 50) {
+      classificacao = "Média";
+    } else {
+      classificacao = "Baixa";
+    }
+
+    return {
+      vagaOriginal: this,
+      percentual,
+      classificacao,
+      encontradas,
+      faltantes,
+    };
+  }
+  mostrarDetalhes() {
+    return `${this.cargo} — ${this.empresa}`;
+  }
+}
+
+export class VagaFrontEnd extends Vaga {
+  constructor(id, empresa, cargo, requisitos, salario, modalidade) {
+    super(id, empresa, cargo, requisitos);
+    this.salario = salario;
+    this.modalidade = modalidade;
+  }
+
+  mostrarDetalhes() {
+    return `${this.cargo} — ${this.empresa} — R$ ${this.salario} (${this.modalidade})`;
+  }
+}
+export function encontrarMelhorVaga(resultados) {
+  if (!resultados || resultados.length === 0) {
+    return null;
+  }
+
+  const maiorPercentual = resultados.reduce(
+    (max, r) => (r.percentual > max ? r.percentual : max),
+    0,
+  );
+
+  // Mostra quando há empate entre vagas com 100% de compatibilidade
+  const melhores = resultados.filter((r) => r.percentual === maiorPercentual);
+  const empatados = melhores.length > 1;
+
+  let recomendacaoEstudo = "";
+
+  if (maiorPercentual === 100) {
+    recomendacaoEstudo = empatados
+      ? `Parabéns! Você atingiu 100% de compatibilidade em ${melhores.length} vagas. Como estão empatadas, vale considerar outros critérios (salário, modalidade) para escolher — e já pode focar em preparar portfólio e entrevista.`
+      : "Você tem o perfil exato para esta vaga! O foco agora é preparar o portfólio e a entrevista.";
+  } else if (melhores[0].faltantes.length > 0) {
+    recomendacaoEstudo = `Para alcançar o match perfeito ${empatados ? "nessas vagas" : "nesta vaga"}, recomendamos focar seus estudos em: ${melhores[0].faltantes.join(", ")}.`;
+  } else {
+    recomendacaoEstudo =
+      "Continue praticando suas habilidades atuais para manter seu perfil altamente competitivo!";
+  }
+
+  return {
+    empatados,
+    percentual: maiorPercentual,
+    recomendacao: recomendacaoEstudo,
+    vagas: melhores.map((r) => ({
+      vagaId: r.vagaOriginal.id,
+      empresa: r.vagaOriginal.empresa,
+      cargo: r.vagaOriginal.cargo,
+      percentual: r.percentual,
+    })),
+  };
+}
