@@ -1,165 +1,279 @@
+/* ============================================================
+   VARIÁVEIS — TEMA ESCURO (paleta índigo/rosa mantida)
+   ============================================================ */
+:root {
+    --cor-primaria: #6366F1;
+    --cor-primaria-clara: #818CF8;
+    --cor-acento: #fa007d;
+    --cor-fundo: #0B0C14;
+    --cor-superficie: #1E203880;
+    --cor-superficie-solida: #1E2038;
+    --cor-borda: #34365A;
+    --cor-texto: #E5E7EB;
+    --cor-texto-suave: #9295B0;
+    --fonte-titulo: 'Space Grotesk', 'Segoe UI', sans-serif;
+    --fonte-corpo: 'Inter', 'Segoe UI', sans-serif;
+    --fonte-mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--fonte-corpo);
 }
 
 body {
-    background-color: #f4f7f6; /* Fundo levemente acinzentado */
-    color: #333;
+    background-color: var(--cor-fundo);
+    background-image:
+        radial-gradient(circle at 15% 0%, rgba(99, 102, 241, 0.18), transparent 40%),
+        radial-gradient(circle at 85% 20%, rgba(236, 72, 153, 0.14), transparent 40%);
+    background-attachment: fixed;
+    color: var(--cor-texto);
     line-height: 1.6;
-    padding: 20px;
+    padding: 8px 20px 20px;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-header, footer {
+h1, h2, h3, h4 {
+    font-family: var(--fonte-titulo);
+    letter-spacing: -0.01em;
+    color: #ffffff;
+}
+
+h2 {
+    font-size: 1.4rem;
+    margin-bottom: 16px;
+}
+
+/* ============================================================
+   HEADER — tratamento de "hero"
+   ============================================================ */
+header {
     text-align: center;
-    padding: 20px 0;
+    padding: 8px 0 24px;
+    position: relative;
 }
 
+ img {
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 24px rgba(99, 102, 241, 0.35));
+}
+
+header p {
+    color: var(--cor-texto-suave);
+    font-size: 1.05rem;
+}
+
+footer {
+    text-align: center;
+    padding: 30px 0;
+}
+
+footer p {
+    color: var(--cor-texto-suave);
+    font-size: 0.8rem;
+}
+
+/* ============================================================
+   LAYOUT PRINCIPAL (mobile-first)
+   ============================================================ */
 main {
     display: flex;
     flex-direction: column;
     gap: 30px;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
 }
 
 @media (min-width: 768px) {
     main {
         flex-direction: row;
-        align-items: flex-start;
+        align-items: center; /* MUDANÇA: Centraliza verticalmente o formulário com a lista de vagas */
+        justify-content: center;
+        gap: 60px; /* Aumentamos um pouco o respiro entre os dois blocos */
+        min-height: 100vh; /* Garante que o main ocupe altura suficiente para centralizar */
     }
     .secao-perfil {
         flex: 1;
+        max-width: 450px; /* Evita que o formulário fique largo demais em monitores 27" */
     }
     .secao-resultados {
         flex: 2;
     }
 }
 
-
-header img {
-    max-width: 400px;
-    height: auto;
-}
-
-.visualmente-oculto {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
+/* ============================================================
+   FORMULÁRIO — cards em "vidro" (glassmorphism sutil)
+   ============================================================ */
 .card-input {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
-    margin-bottom: 20px;
+    background-color: var(--cor-superficie);
+    backdrop-filter: blur(12px);
+    padding: 15px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(54, 13, 13, 0.263);
+    margin-bottom: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    border: 1px solid var(--cor-borda);
 }
 
+.inicio-grupo {
+    margin-top: 20px; /* ajuste esse valor até ficar do jeito que você gosta */
+}
 
 label {
-    font-weight: bold;
-    font-size: 0.9rem;
-    color: #555;
+    font-weight: 600;
+    font-size: 0.725rem;
+    color: var(--cor-texto-suave);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 input, select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    padding: 8px 8px;
+    border: 1.5px solid var(--cor-borda);
+    border-radius: 8px;
     font-size: 1rem;
-    transition: border-color 0.3s ease;
+    background-color: #0F1020;
+    color: var(--cor-texto);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input::placeholder {
+    color: #5B5D75;
 }
 
 input:focus, select:focus {
     outline: none;
-    border-color: #0056b3; /* Cor de foco para acessibilidade */
+    border-color: var(--cor-primaria-clara);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18);
 }
 
-/* Dica de input */
+select option {
+    background-color: #14152A;
+    color: var(--cor-texto);
+}
+
 .dica-input {
-    font-size: 0.8rem;
-    color: #777;
-    margin-top: -5px;
+    font-size: 0.700rem;
+    color: var(--cor-texto-suave);
+    margin-top: -6px;
 }
 
+.botoes-formulario {
+    display: flex;
+    flex-direction: column; /* Empilha os botões um em cima do outro */
+    gap: 12px;
+    margin-top: 12px;
+}
 
+/* Mantém o botão principal como está */
 button[type="submit"] {
     width: 100%;
-    padding: 15px;
-    background-color: #0056b3;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--cor-primaria), var(--cor-acento));
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: bold;
+    border-radius: 10px;
+    font-family: var(--fonte-titulo);
+    font-size: 1.05rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 button[type="submit"]:hover {
-    background-color:#372aa8;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.5);
 }
 
-/* --- Linha do input de habilidade + botão de adicionar --- */
+/* Transforma o Reset em uma Ação Secundária (discreta) */
+button[type="reset"] {
+    width: 100%;
+    padding: 14px;
+    background: transparent; /* Remove o fundo gradiente */
+    color: var(--cor-texto-suave);
+    border: 1.5px solid var(--cor-borda);
+    border-radius: 10px;
+    font-family: var(--fonte-titulo);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Dá um feedback visual avermelhado apenas quando o mouse passa por cima (indicando perigo/limpeza) */
+button[type="reset"]:hover {
+    border-color: #F87171;
+    color: #F87171;
+    background-color: rgba(248, 113, 113, 0.1);
+}
+
 .linha-input-habilidade {
     display: flex;
     gap: 8px;
+    flex-wrap: wrap; /* MÁGICA 1: Permite que o botão caia para a linha de baixo se a tela for muito pequena */
 }
 
 .linha-input-habilidade input {
-    flex: 1;
+    flex: 1 1 200px; /* Tenta ocupar 200px, se não tiver espaço, o flex-wrap entra em ação */
+    min-width: 0; /* MÁGICA 2: O maior segredo do Flexbox! Força o input a encolher sem quebrar o layout */
 }
 
 #btn-add-habilidade {
-    padding: 10px 16px;
-    background-color: #0056b3;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
+    flex: 1 1 auto; /* Permite que o botão estique e fique com um visual fluido se quebrar a linha */
+    padding: 12px 18px;
+    background-color: var(--cor-superficie-solida);
+    color: var(--cor-texto);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
+    transition: border-color 0.2s ease;
 }
 
 #btn-add-habilidade:hover {
-    background-color: #372aa8;
+    border-color: var(--cor-primaria-clara);
+    color: var(--cor-primaria-clara);
 }
+
+/* ============================================================
+   CHIPS DE HABILIDADE
+   ============================================================ */
 #container-habilidades {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: 10px;
+    margin-top: 4px;
 }
 
 .chip-habilidade {
     position: relative;
-    background-color: #e0e7ff;
-    color: #4338ca;
-    padding: 5px 12px;
-    padding-right: 24px;
-    border-radius: 20px;
-    font-size: 0.85rem;
+    background-color: rgba(99, 102, 241, 0.12);
+    color: var(--cor-primaria-clara);
+    padding: 6px 12px;
+    padding-right: 26px;
+    border-radius: 6px;
+    font-family: var(--fonte-mono);
+    font-size: 0.8rem;
     font-weight: 500;
     display: flex;
     align-items: center;
+    border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
 .btn-remover-habilidade {
     background: none;
     border: none;
-    color: #4338ca;
+    color: var(--cor-primaria-clara);
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
@@ -173,4 +287,371 @@ button[type="submit"]:hover {
 
 .chip-habilidade:hover .btn-remover-habilidade {
     opacity: 1;
+}
+
+/* ============================================================
+   DESTAQUE DA MELHOR VAGA — o elemento mais "premium" da tela
+   ============================================================ */
+.vaga-destaque {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.15));
+    border: 1px solid rgba(129, 140, 248, 0.4);
+    color: var(--cor-texto);
+    padding: 28px;
+    border-radius: 16px;
+    margin-bottom: 24px;
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.15), 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.vaga-destaque h3 {
+    font-size: 1.3rem;
+    margin-bottom: 14px;
+}
+
+.lista-melhores-vagas {
+    list-style: none;
+    margin-bottom: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.lista-melhores-vagas li {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-family: var(--fonte-mono);
+}
+
+.recomendacao-estudo {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--cor-texto);
+}
+
+/* ============================================================
+   GRADE DE CARDS DE VAGA (RF11 — Flexbox, flex-wrap + gap)
+   ============================================================ */
+.grade-vagas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 16px;
+}
+
+/* ============================================================
+   GRADE DE CARDS DE VAGA (Ajuste Mobile-First)
+   ============================================================ */
+/* 1. Versão Mobile: Mais compacta, elegante e com respiro */
+.vaga-card {
+    height: 100%;
+    background-color: var(--cor-superficie-solida);
+    border-radius: 12px;
+    padding: 16px; /* Reduzimos o padding no celular */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--cor-borda);
+    border-left: 3px solid var(--cor-borda);
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Reduzimos o espaço entre os textos */
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.vaga-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.vaga-card h4 {
+    font-size: 0.95rem; /* Fonte levemente menor no celular para não quebrar tantas linhas */
+    line-height: 1.4;
+    color: #ffffff;
+}
+
+/* 2. Versão Desktop: Devolve a "essência" e imponência em telas grandes */
+@media (min-width: 768px) {
+    .vaga-card {
+        padding: 20px;
+        padding-left: 24px;
+        border-radius: 14px;
+        gap: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .vaga-card h4 {
+        font-size: 1.05rem; /* Restaura o tamanho original da fonte */
+    }
+}
+
+/* Barra lateral com glow, conforme classificação */
+.vaga-card:has(.classificacao-alta) {
+    border-left-color: #00ff5e;
+    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.08);
+}
+.vaga-card:has(.classificacao-media) {
+    border-left-color: #ffbf00;
+    box-shadow: 0 4px 20px rgba(234, 179, 8, 0.08);
+}
+.vaga-card:has(.classificacao-baixa) {
+    border-left-color: #EF4444;
+    box-shadow: 0 4px 20px rgba(239, 68, 68, 0.08);
+}
+
+.classificacao {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.classificacao-alta {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #4ADE80;
+}
+
+.classificacao-media {
+    background-color: rgba(234, 179, 8, 0.15);
+    color: #FDE047;
+}
+
+.classificacao-baixa {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #F87171;
+}
+
+.habilidades-encontradas,
+.habilidades-faltantes {
+    font-size: 0.82rem;
+    font-family: var(--fonte-mono);
+    padding-top: 8px;
+    border-top: 1px solid var(--cor-borda);
+    line-height: 1.6;
+}
+
+.habilidades-encontradas { color: #4ADE80; }
+.habilidades-faltantes { color: #F87171; }
+
+/* ============================================================
+   ACESSIBILIDADE
+   ============================================================ */
+.visualmente-oculto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ============================================================
+   HERO — seção de apresentação (topo da página)
+   ============================================================ */
+.hero {
+    max-width: 1200px; /* Alinha com o main */
+    margin: 0 auto;    /* Centraliza na tela */
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+}
+
+/* --- Grade de duas colunas (mobile-first: empilhado) --- */
+.hero-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .hero-grid {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+    }
+}
+
+/* --- Coluna de texto (logo + título + parágrafo) --- */
+.hero-texto {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .hero-texto {
+        align-items: flex-start;
+    }
+    .hero-preview {
+        flex: 1; /* Devolve a divisão de 50/50 na tela grande */
+        height: 350px;
+    }
+}
+
+.hero-logo {
+    width: 100%; /* Força a respeitar o limite da tela mobile */
+    max-width: 400px; /* Limita o crescimento no desktop */
+    height: auto;
+    filter: drop-shadow(0 0 24px rgba(99, 102, 241, 0.35));    
+}
+
+.hero h1 {
+    /* Ordem corrigida: mínimo de 2rem, ideal de 6vw, máximo de 3.5rem */
+    font-size: clamp(2rem, 6vw, 3.5rem); 
+    line-height: 1.1; /* Aumentado de 1 para 1.1 para dar um leve respiro nas quebras de linha */
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--cor-primaria-clara), var(--cor-acento));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero p {
+    color: var(--cor-texto-suave);
+    /* Usando clamp aqui também para o parágrafo encolher um pouquinho no mobile */
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    line-height: 1.6;
+}
+/* --- Botão: centralizado, abaixo das duas colunas --- */
+#btn-ver-vagas {
+    position: relative; 
+    z-index: 10;        
+    align-self: center;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, var(--cor-primaria), var(--cor-acento));
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-family: var(--fonte-titulo);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    
+    /* ADICIONE ESTAS DUAS LINHAS: */
+    margin-top: -90px; /* Puxa o botão para cima, aproximando dos cards */
+    margin-bottom: 60px; /* Cria uma barreira de espaço, empurrando a mini logo para longe */
+}
+
+#btn-ver-vagas:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.5);
+}
+
+#btn-ver-vagas:active {
+    transform: translateY(0);
+}
+
+/* --- Coluna de cards (pilha) --- */
+.hero-preview {
+    position: relative;
+    flex: none; /* MÁGICA 1: Impede o navegador de esmagar o container no celular */
+    width: 100%;
+    max-width: 320px;
+    height: 420px; /* MÁGICA 2: Aumentamos a altura para caber todos os cards empilhados */
+    margin: 30px auto;
+}
+
+.hero-preview-card {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background-color: #1E2038;
+    border: 1.5px solid rgba(129, 140, 248, 0.5);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: left;
+}
+
+/* Cards no Mobile (Mais contidos) */
+.card-3 {
+    top: -30px;
+    z-index: 1;
+    transform: rotate(-5deg) translateX(-7px);
+    background: linear-gradient(135deg, #2A2450, #3D1F45);
+    border-color: rgba(236, 72, 153, 0.5);
+    opacity: 0.7;
+}
+
+.card-2 {
+    top: 60px;
+    z-index: 2;
+    transform: rotate(3deg) translateX(15px);
+    background: linear-gradient(135deg, #2A2450, #3D1F45);
+    border-color: rgba(236, 72, 153, 0.5);
+    opacity: 0.85;
+}
+
+.card-1 {
+    top: 140px;
+    z-index: 3;
+    transform: rotate(0deg);
+    opacity: 1;
+    background: linear-gradient(135deg, #2A2450, #3D1F45);
+    border-color:  #00ff5e;
+}
+
+/* Cards no Desktop (Movimento amplo restaurado) */
+@media (min-width: 768px) {
+    .card-3 {
+        top: -20px;
+        transform: rotate(-4deg) translateX(-20px);
+    }
+    
+    .card-2 {
+        top: 50px;
+        transform: rotate(3deg) translateX(100px);
+    }
+}
+.hero-preview-badge {
+    display: inline-block;
+    background-color: rgba(151, 27, 27, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+}
+
+.hero-preview-badge-destaque {
+    background-color: #4ade804a;
+    font-weight: 600;
+}
+
+.hero-preview-card h3 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+    color: #ffffff;
+}
+
+.hero-preview-percentual {
+    font-family: var(--fonte-titulo);
+    font-size: 2.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #4ADE80, #22C55E);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 4px;
+}
+
+.hero-preview-legenda {
+    font-size: 0.72rem;
+    color: #4ADE80;
 }

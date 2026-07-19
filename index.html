@@ -6,55 +6,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="SkillMatch2 - Plataforma de análise de compatibilidade para vagas Front-End.">
     <title>SkillMatch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="./assets/styles/index.style.css">
 </head>
 
 <body>
-
     <header>
-        <img src="./assets/img/logo.svg" alt="Logo SkillMatch: ícone de código e nome da marca, Front-End Developer">
-        <h1 class="visualmente-oculto">SkillMatch</h1>
-        <p>Descubra a vaga ideal para o seu perfil</p>
+        <section class="hero">
+            <div class="hero-grid">
+                <div class="hero-texto">
+                    
+                    <h1>Descubra sua vaga ideal com base no seu perfil</h1>
+                    <p>Compare suas habilidades com vagas reais de front-end, veja seu percentual de compatibilidade com
+                        cada uma e receba uma recomendação de estudo personalizada.</p>
+                </div>
+
+                <div class="hero-preview" aria-hidden="true">
+                    <div class="hero-preview-card card-3">
+                        <span class="hero-preview-badge">MÉDIA — 67%</span>
+                        <h3>Dev Jr — Vaga Exemplo</h3>
+                    </div>
+                    <div class="hero-preview-card card-2">
+                        <span class="hero-preview-badge">ALTA — 89%</span>
+                        <h3>Front-End Pleno — Vaga Exemplo</h3>
+                    </div>
+                    <div class="hero-preview-card card-1">
+                        <span class="hero-preview-badge hero-preview-badge-destaque">🏆 Melhor Match</span>
+                        <h3>Front-End Jr — Vaga Exemplo</h3>
+                        <p class="hero-preview-percentual">100%</p>
+                        <p class="hero-preview-legenda">Prévia ilustrativa do resultado</p>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" id="btn-ver-vagas">Ver vagas para o seu perfil</button>
+        </section>
+
     </header>
 
     <main>
-        <section class="secao-perfil" aria-label="Formulário de Perfil do Candidato">
-            <h2>Sobre você</h2>
+        <section class="secao-perfil" id="secao-perfil" aria-label="Formulário de Perfil do Candidato">
+
             <form id="form-perfil">
+                <img src="./assets/img/gemini-svg.svg"
+                    alt="Logo SkillMatch: ícone de código e nome da marca, Front-End Developer">
+                <h2>Sobre você</h2>
                 <!-- Card 1: Dados Básicos -->
                 <div class="card-input">
-                    <label for="nome">Nome Completo *</label>
-                    <input type="text" id="nome" name="nome" required placeholder="Ex: Sabrina Correa" autocomplete="off">      
-                    <label for="area">Área de Atuação *</label>
+                    <label for="nome" class="inicio-grupo">Nome Completo *</label>
+                    <input type="text" id="nome" name="nome" required placeholder="Ex: Sabrina Correa"
+                        autocomplete="off">
+                    <label for="area" class="inicio-grupo">Área de Atuação *</label>
                     <select id="area" name="area" required autocomplete="off">
                         <option value="" disabled selected>Selecione sua área...</option>
                         <option value="Front-End">Front-End</option>
                         <option value="Back-End">Back-End</option>
                         <option value="Full-Stack">Full-Stack</option>
                     </select>
-                </div>
 
-                <!-- Card 2: Experiência -->
-                <div class="card-input">
-                    <label for="experiencia">Tempo de Experiência (meses) *</label>
-                    <input type="number" id="experiencia" name="experiencia" min="0" required placeholder="Ex: 12" autocomplete="off">
-                </div>
+                    <label for="experiencia" class="inicio-grupo">Tempo de Experiência (meses) *</label>
+                    <input type="number" id="experiencia" name="experiencia" min="0" required placeholder="Ex: 12"
+                        autocomplete="off">
 
-                <!-- Card 3: Habilidades (Aqui a mágica dos chips vai acontecer depois) -->
-                <div class="card-input">
-                    <label for="habilidade-input">Adicione suas Habilidades:</label>
+
+                    <label for="habilidade-input" class="inicio-grupo">Adicione suas Habilidades:</label>
                     <p class="dica-input">Digite a tecnologia (ex: javascript, css) e aperte Enter.</p>
                     <div class="linha-input-habilidade">
                         <input type="text" id="habilidade-input" placeholder="Digite aqui...">
                         <button type="button" id="btn-add-habilidade"
                             aria-label="Adicionar habilidade">Adicionar</button>
                     </div>
-
-                    <!-- Container visual onde os "chips" das habilidades vão se acumular -->
                     <div id="container-habilidades" aria-live="polite"></div>
                 </div>
+                <div class="botoes-formulario">
                 <button type="submit">Analisar Compatibilidade</button>
+                <button type="reset" id="btn-reset">Nova Análise</button>
+                </div>
             </form>
         </section>
 

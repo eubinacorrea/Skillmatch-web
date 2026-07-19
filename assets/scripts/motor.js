@@ -71,11 +71,19 @@ export function encontrarMelhorVaga(resultados) {
   let recomendacaoEstudo = "";
 
   if (maiorPercentual === 100) {
+    // Quando atinge 100%
     recomendacaoEstudo = empatados
-      ? `Parabéns! Você atingiu 100% de compatibilidade em ${melhores.length} vagas. Como estão empatadas, vale considerar outros critérios (salário, modalidade de trabalho) para escolher — e já pode focar em preparar portfólio e entrevista.`
+      ? `Parabéns! Você atingiu 100% de compatibilidade em ${melhores.length} vagas.<br>Como estão empatadas, vale considerar outros critérios (salário, modalidade de trabalho) para escolher — e já pode focar em preparar portfólio e entrevista.`
       : "Você tem o perfil exato para esta vaga! O foco agora é preparar o portfólio e a entrevista.";
+      
+  } else if (maiorPercentual < 45) {
+    // NOVA REGRA: Quando a compatibilidade máxima for "Baixa" (menor que 45%)
+    recomendacaoEstudo = `Não desanime! Toda jornada na programação tem um começo. <br>Para deixar o seu perfil mais competitivo para essas vagas, a nossa recomendação é focar em fortalecer a sua base estudando: ${melhores[0].faltantes.join(", ")}. <br>Mantenha o ritmo de estudos e logo o seu match vai aumentar!`;
+    
   } else if (melhores[0].faltantes.length > 0) {
+    // Quando a compatibilidade é "Média" ou "Alta" (entre 45% e 99%)
     recomendacaoEstudo = `Para alcançar o match perfeito ${empatados ? "nessas vagas" : "nesta vaga"}, recomendamos focar seus estudos em: ${melhores[0].faltantes.join(", ")}.`;
+    
   } else {
     recomendacaoEstudo =
       "Continue praticando suas habilidades atuais para manter seu perfil altamente competitivo!";

@@ -10,6 +10,13 @@ let listaHabilidades = [];
 
 const btnAddHabilidade = document.getElementById("btn-add-habilidade");
 
+const btnVerVagas = document.getElementById('btn-ver-vagas');
+const secaoPerfil = document.getElementById('secao-perfil');
+
+btnVerVagas.addEventListener('click', () => {
+    secaoPerfil.scrollIntoView({ behavior: 'smooth' });
+});
+
 function adicionarHabilidadeDoInput() {
   const valores = inputHabilidade.value.split(/[\s,]+/); // finaliza a habilidade ao digitar vírgula ou espaço
 
@@ -62,10 +69,15 @@ function atualizarChipsHabilidades() {
 }
 
 async function analisarCompatibilidade() {
+  // 1. Mostra a mensagem de carregamento na tela
   containerVagas.innerHTML =
     '<p class="estado-carregamento">Procurando as melhores vagas...</p>';
 
   try {
+    // 2. O truque de mestre: pausa a execução por 2 segundos (2000 milissegundos)
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    // 3. Depois dos 2 segundos, o código volta a rodar normalmente
     const dadosVagas = await buscarVagas();
     const vagas = dadosVagas.map(
       (v) =>
@@ -118,60 +130,75 @@ formPerfil.addEventListener("submit", (evento) => {
 });
 
 function renderizarResultados(resultados, melhor) {
-  containerVagas.innerHTML = "";
+    containerVagas.innerHTML = '';
 
-  if (!resultados || resultados.length === 0) {
-    containerVagas.innerHTML =
-      "<p>Não foram encontradas vagas compatíveis.</p>";
-    return;
-  }
+    if (!resultados || resultados.length === 0) {
+        containerVagas.innerHTML = '<p>Não foram encontradas vagas compatíveis.</p>';
+        return;
+    }
 
-  // Melhor vaga + recomendação de estudo  -----
-  if (melhor) {
-    const destaque = document.createElement("div");
-    destaque.className = "vaga-destaque";
+    // ----- Destaque da melhor vaga + recomendação de estudo -----
+    if (melhor) {
+        const destaque = document.createElement('div');
+        destaque.className = 'vaga-destaque';
 
-    const tituloDestaque = melhor.empatados
-      ? `🏆 ${melhor.vagas.length} Vagas Empatadas em ${melhor.percentual}%`
-      : `🏆 Melhor Match: ${melhor.vagas[0].cargo}`;
+        let tituloDestaque;
+        
+        // Ajusta o título dependendo do percentual
+        if (melhor.percentual === 0) {
+            tituloDestaque = `📚 Nenhuma vaga compatível ainda`;
+        } else if (melhor.percentual < 45) {
+            tituloDestaque = `📚 Vamos fortalecer esse perfil?`; // Título acolhedor para notas baixas
+        } else if (melhor.empatados) {
+            tituloDestaque = `🏆 ${melhor.vagas.length} Vagas Empatadas em ${melhor.percentual}%`;
+        } else {
+            tituloDestaque = `🏆 Melhor Match: ${melhor.vagas[0].cargo}`;
+        }
 
-    const listaVagas = melhor.vagas
-      .map((v) => `<li>${v.cargo} — ${v.empresa}</li>`)
-      .join("");
+        // Só mostra a listagem das vagas no destaque se atingir a média (>= 45%)
+        const listaVagas = melhor.percentual >= 45
+            ? `<ul class="lista-melhores-vagas">${melhor.vagas.map(v => `<li>${v.cargo} — ${v.empresa}</li>`).join('')}</ul>`
+            : '';
 
-    destaque.innerHTML = `
+        destaque.innerHTML = `
             <h3>${tituloDestaque}</h3>
-            <ul class="lista-melhores-vagas">${listaVagas}</ul>
+            ${listaVagas}
             <p class="recomendacao-estudo">💡 <strong>Dica de Estudo:</strong> ${melhor.recomendacao}</p>
         `;
-    containerVagas.appendChild(destaque);
-  }
+        containerVagas.appendChild(destaque);
+    }
 
-  //  Cards por vaga -----
-  const grade = document.createElement("div");
-  grade.className = "grade-vagas";
+    // ----- Grade com um card por vaga -----
+    // Aqui está a MÁGICA: Filtra para exibir apenas vagas com 45% ou mais de compatibilidade
+    const vagasFiltradas = resultados.filter(resultado => resultado.percentual >= 45);
 
-  resultados.forEach((resultado) => {
-    const vaga = resultado.vagaOriginal;
+    // Só cria a grade se houver vagas aprovadas no filtro
+    if (vagasFiltradas.length > 0) {
+        const grade = document.createElement('div');
+        grade.className = 'grade-vagas';
 
-    const card = document.createElement("div");
-    card.className = "vaga-card";
-    card.innerHTML = `
-            <h4>${vaga.mostrarDetalhes()}</h4>
-            <p class="classificacao classificacao-${resultado.classificacao.toLowerCase()}">
-                ${resultado.classificacao} — ${resultado.percentual}%
-            </p>
-            <p class="habilidades-encontradas">
-                ✅ Encontradas: ${resultado.encontradas.length > 0 ? resultado.encontradas.join(", ") : "nenhuma"}
-            </p>
-            <p class="habilidades-faltantes">
-                ⚠️ Faltantes: ${resultado.faltantes.length > 0 ? resultado.faltantes.join(", ") : "nenhuma"}
-            </p>
-        `;
-    grade.appendChild(card);
-  });
+        vagasFiltradas.forEach(resultado => {
+            const vaga = resultado.vagaOriginal;
 
-  containerVagas.appendChild(grade);
+            const card = document.createElement('div');
+            card.className = 'vaga-card';
+            card.innerHTML = `
+                <h4>${vaga.mostrarDetalhes()}</h4>
+                <p class="classificacao classificacao-${resultado.classificacao.toLowerCase()}">
+                    ${resultado.classificacao} — ${resultado.percentual}%
+                </p>
+                <p class="habilidades-encontradas">
+                    ✅ Encontradas: ${resultado.encontradas.length > 0 ? resultado.encontradas.join(', ') : 'nenhuma'}
+                </p>
+                <p class="habilidades-faltantes">
+                    ⚠️ Faltantes: ${resultado.faltantes.length > 0 ? resultado.faltantes.join(', ') : 'nenhuma'}
+                </p>
+            `;
+            grade.appendChild(card);
+        });
+
+        containerVagas.appendChild(grade);
+    }
 }
 
 // Quando página atualizar, volta para o perfil salvo -----
@@ -189,3 +216,19 @@ export function iniciarApp() {
     analisarCompatibilidade();
   }
 }
+
+
+// Ouve o clique no botão de "Reset" (Limpar Perfil)
+formPerfil.addEventListener("reset", () => {
+  // 1. Zera a lista de habilidades na memória do JavaScript
+  listaHabilidades = [];
+  
+  // 2. Atualiza a tela para remover os chips de habilidades desenhados
+  atualizarChipsHabilidades();
+  
+  // 3. Limpa a tela de resultados e volta ao texto padrão
+  containerVagas.innerHTML = '<p>Preencha seu perfil para ver as vagas recomendadas.</p>';
+  
+  // 4. Remove o perfil salvo do LocalStorage (para não recarregar os dados antigos se der F5)
+  localStorage.removeItem("skillmatch_perfil");
+});
