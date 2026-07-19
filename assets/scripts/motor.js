@@ -22,10 +22,10 @@ export class Vaga {
     );
 
     let classificacao = "";
-    if (percentual >= 80) {
+    if (percentual >= 75) {
       classificacao = "Alta";
-    } else if (percentual >= 50) {
-      classificacao = "Média";
+    } else if (percentual >= 45) {
+      classificacao = "Media";
     } else {
       classificacao = "Baixa";
     }
@@ -72,7 +72,7 @@ export function encontrarMelhorVaga(resultados) {
 
   if (maiorPercentual === 100) {
     recomendacaoEstudo = empatados
-      ? `Parabéns! Você atingiu 100% de compatibilidade em ${melhores.length} vagas. Como estão empatadas, vale considerar outros critérios (salário, modalidade) para escolher — e já pode focar em preparar portfólio e entrevista.`
+      ? `Parabéns! Você atingiu 100% de compatibilidade em ${melhores.length} vagas. Como estão empatadas, vale considerar outros critérios (salário, modalidade de trabalho) para escolher — e já pode focar em preparar portfólio e entrevista.`
       : "Você tem o perfil exato para esta vaga! O foco agora é preparar o portfólio e a entrevista.";
   } else if (melhores[0].faltantes.length > 0) {
     recomendacaoEstudo = `Para alcançar o match perfeito ${empatados ? "nessas vagas" : "nesta vaga"}, recomendamos focar seus estudos em: ${melhores[0].faltantes.join(", ")}.`;
