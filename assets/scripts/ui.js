@@ -69,11 +69,15 @@ function atualizarChipsHabilidades() {
 }
 
 async function analisarCompatibilidade() {
+  // 1. Mostra a mensagem de carregamento na tela
   containerVagas.innerHTML =
     '<p class="estado-carregamento">Procurando as melhores vagas...</p>';
 
   try {
-    
+    // 2. O truque de mestre: pausa a execução por 2 segundos (2000 milissegundos)
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    // 3. Depois dos 2 segundos, o código volta a rodar normalmente
     const dadosVagas = await buscarVagas();
     const vagas = dadosVagas.map(
       (v) =>

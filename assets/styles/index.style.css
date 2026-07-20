@@ -56,10 +56,10 @@ header {
     position: relative;
 }
 
-.logo-formulario {
-    max-width: 280px; /* ajuste esse valor até o tamanho que você quer */
+ img {
+    max-width: 200px;
     height: auto;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     filter: drop-shadow(0 0 24px rgba(99, 102, 241, 0.35));
 }
 
@@ -503,6 +503,12 @@ button[type="reset"]:hover {
     }
 }
 
+.hero-logo {
+    width: 100%; /* Força a respeitar o limite da tela mobile */
+    max-width: 400px; /* Limita o crescimento no desktop */
+    height: auto;
+    filter: drop-shadow(0 0 24px rgba(99, 102, 241, 0.35));    
+}
 
 .hero h1 {
     /* Ordem corrigida: mínimo de 2rem, ideal de 6vw, máximo de 3.5rem */
@@ -539,8 +545,8 @@ button[type="reset"]:hover {
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     
     /* ADICIONE ESTAS DUAS LINHAS: */
-    margin-top: 0px; /* Puxa o botão para cima, aproximando dos cards */
-    margin-bottom: 0px; /* Cria uma barreira de espaço, empurrando a mini logo para longe */
+    margin-top: -90px; /* Puxa o botão para cima, aproximando dos cards */
+    margin-bottom: 60px; /* Cria uma barreira de espaço, empurrando a mini logo para longe */
 }
 
 #btn-ver-vagas:hover {
@@ -558,7 +564,7 @@ button[type="reset"]:hover {
     flex: none; /* MÁGICA 1: Impede o navegador de esmagar o container no celular */
     width: 100%;
     max-width: 320px;
-    height: 300px; /* MÁGICA 2: Aumentamos a altura para caber todos os cards empilhados */
+    height: 420px; /* MÁGICA 2: Aumentamos a altura para caber todos os cards empilhados */
     margin: 30px auto;
 }
 
@@ -578,7 +584,7 @@ button[type="reset"]:hover {
 .card-3 {
     top: -30px;
     z-index: 1;
-    transform: rotate(-5deg) translateX(-20px);
+    transform: rotate(-5deg) translateX(-7px);
     background: linear-gradient(135deg, #2A2450, #3D1F45);
     border-color: rgba(236, 72, 153, 0.5);
     opacity: 0.7;
@@ -587,7 +593,7 @@ button[type="reset"]:hover {
 .card-2 {
     top: 60px;
     z-index: 2;
-    transform: rotate(3deg) translateX(-25px);
+    transform: rotate(3deg) translateX(15px);
     background: linear-gradient(135deg, #2A2450, #3D1F45);
     border-color: rgba(236, 72, 153, 0.5);
     opacity: 0.85;
