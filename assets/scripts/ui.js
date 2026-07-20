@@ -169,10 +169,7 @@ function renderizarResultados(resultados, melhor) {
     }
 
     // ----- Grade com um card por vaga -----
-    // Aqui está a MÁGICA: Filtra para exibir apenas vagas com 45% ou mais de compatibilidade
     const vagasFiltradas = resultados.filter(resultado => resultado.percentual >= 45);
-
-    // Só cria a grade se houver vagas aprovadas no filtro
     if (vagasFiltradas.length > 0) {
         const grade = document.createElement('div');
         grade.className = 'grade-vagas';
@@ -218,17 +215,11 @@ export function iniciarApp() {
 }
 
 
-// Ouve o clique no botão de "Reset" (Limpar Perfil)
+//Limpar Perfil
 formPerfil.addEventListener("reset", () => {
-  // 1. Zera a lista de habilidades na memória do JavaScript
+  
   listaHabilidades = [];
-  
-  // 2. Atualiza a tela para remover os chips de habilidades desenhados
-  atualizarChipsHabilidades();
-  
-  // 3. Limpa a tela de resultados e volta ao texto padrão
-  containerVagas.innerHTML = '<p>Preencha seu perfil para ver as vagas recomendadas.</p>';
-  
-  // 4. Remove o perfil salvo do LocalStorage (para não recarregar os dados antigos se der F5)
-  localStorage.removeItem("skillmatch_perfil");
+    atualizarChipsHabilidades();
+    containerVagas.innerHTML = '<p>Preencha seu perfil para ver as vagas recomendadas.</p>';
+    localStorage.removeItem("skillmatch_perfil");
 });
